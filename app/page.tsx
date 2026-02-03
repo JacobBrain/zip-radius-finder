@@ -2,9 +2,27 @@
 
 import { useState, FormEvent } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+// Dynamically import map component to avoid SSR issues with Leaflet
+const ZipMap = dynamic(() => import("./components/ZipMap"), {
+  ssr: false,
+  loading: () => <div className="map-loading">Loading map...</div>,
+});
+
+interface ZipDetail {
+  zip_code: string;
+  city: string;
+  state: string;
+  distance: number;
+  lat: number;
+  lng: number;
+}
 
 interface SearchResult {
   zipCodes: string[];
+  zipDetails: ZipDetail[];
+  centerCoords: { lat: number; lng: number } | null;
   meta: {
     count: number;
     centerZip: string;
@@ -191,11 +209,48 @@ export default function Home() {
                   {result.meta.units}s
                 </span>
               </div>
-              <textarea
-                className="results-textarea"
-                readOnly
-                value={result.zipCodes.join("\n")}
-              />
+
+              {/* Results Table */}
+              <div className="results-table-container">
+                <table className="results-table">
+                  <thead>
+                    <tr>
+                      <th>ZIP Code</th>
+                      <th>City</th>
+                      <th>State</th>
+                      <th>Distance (mi)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result.zipDetails.map((z) => (
+                      <tr key={z.zip_code}>
+                        <td className="zip-cell">{z.zip_code}</td>
+                        <td>{z.city}</td>
+                        <td>{z.state}</td>
+                        <td className="distance-cell">{z.distance.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Map */}
+              <div className="map-container">
+                <h3 className="map-title">Visual Verification</h3>
+                <ZipMap
+                  centerCoords={result.centerCoords}
+                  centerZip={result.meta.centerZip}
+                  zipDetails={result.zipDetails}
+                />
+                <p className="map-legend">
+                  <span className="legend-item">
+                    <span className="legend-marker legend-center" /> Center ZIP
+                  </span>
+                  <span className="legend-item">
+                    <span className="legend-marker legend-result" /> Result ZIPs
+                  </span>
+                </p>
+              </div>
             </div>
           )}
 

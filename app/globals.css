@@ -72,7 +72,7 @@ body {
 
 /* ==================== MAIN LAYOUT ==================== */
 .main {
-  max-width: 540px;
+  max-width: 720px;
   margin: -2rem auto 3rem;
   padding: 0 1rem;
   position: relative;
@@ -288,6 +288,121 @@ body {
 .results-textarea:focus {
   outline: none;
   border-color: var(--aw-french-gray);
+}
+
+/* ==================== RESULTS TABLE ==================== */
+.results-table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.results-table thead {
+  position: sticky;
+  top: 0;
+  background: var(--off-white);
+  z-index: 1;
+}
+
+.results-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--border-light);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.results-table td {
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-dark);
+}
+
+.results-table tbody tr:hover {
+  background-color: rgba(140, 36, 51, 0.03);
+}
+
+.results-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.results-table .zip-cell {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  color: var(--aw-claret);
+}
+
+.results-table .distance-cell {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  text-align: right;
+}
+
+/* ==================== MAP ==================== */
+.map-container {
+  margin-top: 1.5rem;
+}
+
+.map-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.map-loading {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--off-white);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.zip-map {
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+}
+
+.map-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-center {
+  background-color: #CB2B3E;
+}
+
+.legend-result {
+  background-color: #2A81CB;
 }
 
 /* ==================== LOADING STATE ==================== */
